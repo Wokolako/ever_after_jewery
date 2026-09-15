@@ -1,0 +1,42 @@
+[
+  {
+    "id": "usr-atelier-01",
+    "email": "arthur@sterling-atelier.co.uk",
+    "passwordHash": "$2a$10$wEeV04vB2B1iGZ7Y4R9a7e0y4hLhV5M4B5Q6W7E8R9T0Y1U2I3O4P",
+    "clientName": "Arthur Sterling",
+    "companyName": "Atelier Sterling & Co.",
+    "memberId": "YM-ATELIER-7741",
+    "accountRole": "trade_partner",
+    "tier": "Tier 1 Master Goldsmith",
+    "creditLineUSD": 1500000,
+    "phone": "+44 20 7946 0912",
+    "address": "14 Hatton Garden, London EC1N 8AT, United Kingdom",
+    "isVerifiedTrade": true,
+    "createdAt": "2024-03-15T09:00:00.000Z",
+    "savedStoneIds": ["dia-1001", "sap-2001"],
+    "preferences": {
+      "notifyDrops": true,
+      "notifyMemos": true
+    }
+  },
+  {
+    "id": "usr-admin-01",
+    "email": "curator@somuchaura.com",
+    "passwordHash": "$2a$10$wEeV04vB2B1iGZ7Y4R9a7e0y4hLhV5M4B5Q6W7E8R9T0Y1U2I3O4P",
+    "clientName": "Elena Vance",
+    "companyName": "Somuchaura Haute Vaults",
+    "memberId": "SA-VAULT-ADMIN",
+    "accountRole": "admin",
+    "tier": "Chief Gemological Curator",
+    "creditLineUSD": 10000000,
+    "phone": "+1 (212) 555-0199",
+    "address": "580 Fifth Avenue, Diamond District, New York, NY 10036",
+    "isVerifiedTrade": true,
+    "createdAt": "2023-01-10T10:30:00.000Z",
+    "savedStoneIds": ["dia-1002", "tou-6001"],
+    "preferences": {
+      "notifyDrops": true,
+      "notifyMemos": true
+    }
+  }
+]

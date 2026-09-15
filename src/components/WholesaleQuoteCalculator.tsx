@@ -1,0 +1,256 @@
+import React, { useState } from 'react';
+import { GemCategory } from '../types';
+import { Calculator, Check, ArrowRight, FileSpreadsheet, Shield, Sparkles } from 'lucide-react';
+
+export const WholesaleQuoteCalculator: React.FC = () => {
+  const [gemType, setGemType] = useState<GemCategory>('Diamond');
+  const [shape, setShape] = useState<string>('Emerald Cut');
+  const [caratSize, setCaratSize] = useState<number>(3.5);
+  const [clarityTier, setClarityTier] = useState<'Investment Grade (FL/VVS)' | 'Commercial Fine (VS)' | 'Atelier Standard (SI1)'>('Investment Grade (FL/VVS)');
+  const [quantity, setQuantity] = useState<number>(1);
+  const [originPreference, setOriginPreference] = useState<string>('Ethical Certified Co-op');
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
+  // Dynamic estimate calculation based on gemstone parameters
+  const baseRatePerCarat: Record<GemCategory, number> = {
+    Diamond: 42000,
+    Sapphire: 12000,
+    Emerald: 24000,
+    Ruby: 65000,
+    Spinel: 14000,
+    Tourmaline: 38000,
+  };
+
+  const clarityMultiplier = 
+    clarityTier === 'Investment Grade (FL/VVS)' ? 1.45 :
+    clarityTier === 'Commercial Fine (VS)' ? 1.0 : 0.72;
+
+  const estimatedPerCarat = Math.round(baseRatePerCarat[gemType] * clarityMultiplier * (caratSize > 5 ? 1.6 : 1.0));
+  const estimatedTotal = Math.round(estimatedPerCarat * caratSize * quantity);
+
+  const handleQuoteSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="py-12 lg:py-20 bg-[#FAF8F5]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14 space-y-2">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#8C827A] font-semibold">
+            B2B Atelier Financial Desk
+          </span>
+          <h1 className="font-serif text-3xl sm:text-5xl text-[#1A1918]">
+            Wholesale Parcel &amp; Custom Sourcing Quote
+          </h1>
+          <p className="text-sm sm:text-base text-[#57534E] font-light leading-relaxed">
+            Calculate instant estimated trade valuations for single bespoke commission stones or calibrated parcel layouts. Generate formal GIA memo paperwork in real time.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Form: Parameter Selectors */}
+          <div className="lg:col-span-7 bg-[#FFFFFF] p-6 sm:p-8 rounded-xl border border-[#E8E1D9] shadow-sm space-y-6">
+            <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-[#1A1918] pb-3 border-b border-[#F2ECE4] flex items-center gap-2">
+              <Calculator className="w-4 h-4 text-[#C5A880]" />
+              <span>Configure Sourcing Specifications</span>
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Gem Type */}
+              <div>
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                  Gemstone Variety
+                </label>
+                <select
+                  value={gemType}
+                  onChange={(e) => setGemType(e.target.value as GemCategory)}
+                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none focus:border-[#1A1918]"
+                >
+                  <option value="Diamond">Investment Diamond (Type IIa / Fancy)</option>
+                  <option value="Sapphire">Ceylon / Kashmir Sapphire (Unheated)</option>
+                  <option value="Emerald">Colombian Muzo Emerald (Minor/No Oil)</option>
+                  <option value="Ruby">Burmese / Mozambique Pigeon Blood Ruby</option>
+                  <option value="Spinel">Cobalt Blue / Mahenge Spinel</option>
+                  <option value="Tourmaline">Paraiba Neon Tourmaline (Batalha)</option>
+                </select>
+              </div>
+
+              {/* Shape */}
+              <div>
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                  Cut Profile
+                </label>
+                <select
+                  value={shape}
+                  onChange={(e) => setShape(e.target.value)}
+                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none focus:border-[#1A1918]"
+                >
+                  <option value="Emerald Cut">Emerald Cut (Step Facet)</option>
+                  <option value="Cushion">Antique / Modified Cushion</option>
+                  <option value="Oval">Oval Brilliant</option>
+                  <option value="Pear">Pear Shape</option>
+                  <option value="Round Brilliant">Round Brilliant (Ideal Hearts &amp; Arrows)</option>
+                  <option value="Asscher">Royal Asscher Cut</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Carat Slider */}
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium">
+                  Target Carat Weight (Per Stone)
+                </label>
+                <span className="font-serif text-base font-semibold text-[#1A1918]">
+                  {caratSize} ct
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0.75"
+                max="15.0"
+                step="0.25"
+                value={caratSize}
+                onChange={(e) => setCaratSize(parseFloat(e.target.value))}
+                className="w-full accent-[#1A1918] cursor-pointer"
+              />
+              <div className="flex justify-between text-[10px] text-[#A8A29E] mt-1">
+                <span>0.75ct (Atelier Accent)</span>
+                <span>5.0ct (High Solitaire)</span>
+                <span>15.0ct (Museum Investment)</span>
+              </div>
+            </div>
+
+            {/* Clarity Tier & Quantity */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                  Clarity &amp; Purity Tier
+                </label>
+                <select
+                  value={clarityTier}
+                  onChange={(e) => setClarityTier(e.target.value as any)}
+                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none focus:border-[#1A1918]"
+                >
+                  <option value="Investment Grade (FL/VVS)">Investment Grade (FL / IF / VVS1)</option>
+                  <option value="Commercial Fine (VS)">Commercial Fine (VS1 / VS2 Eye-Clean)</option>
+                  <option value="Atelier Standard (SI1)">Atelier Standard (SI1 Selected)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                  Quantity / Matching Parcel Units
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="50"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Origin & Provenance */}
+            <div>
+              <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                Origin &amp; Ethical Guarantee
+              </label>
+              <select
+                value={originPreference}
+                onChange={(e) => setOriginPreference(e.target.value)}
+                className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none"
+              >
+                <option value="Ethical Certified Co-op">Verified Artisanal Co-op (Sri Lanka / Colombia / Canada)</option>
+                <option value="Historical European Estate">Single-Owner Historical European Estate Vault</option>
+                <option value="Argyle Legacy Stock">Argyle Legacy Vault Stock (Certified Pink Diamonds)</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Right Summary: Live Valuation Card */}
+          <div className="lg:col-span-5 bg-[#141413] text-[#FAF8F5] p-6 sm:p-8 rounded-xl border border-[#2E2C2A] shadow-xl space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-[#2C2B29]">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-[#C5A880] font-bold">
+                Live Wholesale Estimate
+              </span>
+              <span className="text-[10px] text-[#A8A29E]">Currency: USD ($)</span>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="flex justify-between py-1 border-b border-[#262523]">
+                <span className="text-[#A8A29E]">Selected Profile:</span>
+                <span className="font-medium text-[#FAF8F5] text-right">{caratSize}ct {shape} {gemType}</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#262523]">
+                <span className="text-[#A8A29E]">Clarity Standard:</span>
+                <span className="font-medium text-[#FAF8F5]">{clarityTier.split('(')[0]}</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#262523]">
+                <span className="text-[#A8A29E]">Batch Quantity:</span>
+                <span className="font-medium text-[#FAF8F5]">{quantity} {quantity > 1 ? 'pieces (Matched Layout)' : 'solitaire stone'}</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#262523]">
+                <span className="text-[#A8A29E]">Est. Rate per Carat:</span>
+                <span className="font-medium text-[#C5A880]">${estimatedPerCarat.toLocaleString()} / ct</span>
+              </div>
+            </div>
+
+            {/* Total Valuation Block */}
+            <div className="bg-[#1C1B19] p-5 rounded-lg border border-[#3E3B38] space-y-1">
+              <span className="text-[10px] uppercase tracking-wider text-[#A8A29E] block">
+                Estimated Trade Valuation (Gross Ex-VAT)
+              </span>
+              <div className="font-serif text-3xl sm:text-4xl text-[#FAF8F5] font-normal">
+                ${estimatedTotal.toLocaleString()} <span className="text-sm font-sans text-[#C5A880]">USD</span>
+              </div>
+              <p className="text-[10px] text-[#78716C] pt-1">
+                Subject to final GIA/Gübelin weight certificates and 14-day approval memo review.
+              </p>
+            </div>
+
+            {submitted ? (
+              <div className="p-4 bg-[#1E3A20] border border-[#2E7D32] rounded-lg text-xs space-y-1 text-[#E8F5E9]">
+                <div className="flex items-center gap-1.5 font-bold">
+                  <Check className="w-4 h-4 text-[#81C784]" /> Allocation Dossier Initiated
+                </div>
+                <p className="text-[11px] text-[#C8E6C9] font-light">
+                  Our gemological desk has registered your specs. A senior specialist will follow up from <span className="underline">consult@yosenamora.com</span> within 4 hours.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleQuoteSubmit} className="space-y-3">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your jeweller atelier email..."
+                  className="w-full bg-[#242321] border border-[#3E3B38] rounded px-3.5 py-2.5 text-xs text-[#FAF8F5] placeholder-[#78716C] focus:outline-none focus:border-[#C5A880]"
+                />
+                <button
+                  type="submit"
+                  className="w-full py-3.5 bg-[#FAF8F5] text-[#141413] hover:bg-[#E2DDD6] rounded text-xs uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+                >
+                  <span>Request Formal Memo Dossier</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </form>
+            )}
+
+            <div className="flex items-center gap-2 text-[10px] text-[#78716C] justify-center">
+              <Shield className="w-3.5 h-3.5 text-[#C5A880]" />
+              <span>Full confidentiality guaranteed under bilateral NDA</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+};
