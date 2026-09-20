@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { POLICY_CONTENTS } from '../data/content';
 import { PolicyType } from '../types';
-import { X, ShieldCheck, FileText, Mail } from 'lucide-react';
+import { X, FileText, Mail } from 'lucide-react';
 
 interface PolicyModalProps {
   policyType: PolicyType | null;
@@ -38,23 +38,23 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ policyType, onClose })
       role="dialog"
       aria-modal="true"
       aria-label={policy.title}
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in"
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in"
     >
       <div 
-        className="bg-[#FAF8F5] w-full max-w-2xl rounded-xl border border-[#D5CDC4] shadow-2xl overflow-hidden my-8 relative max-h-[85vh] flex flex-col"
+        className="bg-[#FAF8F5] dark:bg-[#121110] w-full max-w-2xl rounded-xl border border-[#D5CDC4] dark:border-[#2C2926] shadow-2xl overflow-hidden my-8 relative max-h-[85vh] flex flex-col transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-[#E8E1D9] flex items-center justify-between bg-[#FFFFFF]">
+        <div className="px-6 py-4 border-b border-[#E8E1D9] dark:border-[#262320] flex items-center justify-between bg-[#FFFFFF] dark:bg-[#181614]">
           <div className="flex items-center gap-2">
             <FileText className="w-4 h-4 text-[#C5A880]" />
-            <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8C827A]">
+            <span className="text-xs uppercase font-bold tracking-[0.25em] text-[#8C827A] dark:text-[#A69C94]">
               Legal Filing &amp; Compliance
             </span>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-[#57534E] hover:text-[#1A1918] hover:bg-[#F2ECE4] rounded-full transition-colors cursor-pointer"
+            className="p-1.5 text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -62,19 +62,19 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ policyType, onClose })
 
         {/* Content */}
         <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
-          <div className="border-b border-[#E8E1D9] pb-4">
-            <h2 className="font-serif text-2xl sm:text-3xl text-[#1A1918]">
+          <div className="border-b border-[#E8E1D9] dark:border-[#262320] pb-4">
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#1A1918] dark:text-[#F5F2ED]">
               {policy.title}
             </h2>
-            <p className="text-xs text-[#78716C] mt-1 font-light">
+            <p className="text-xs sm:text-sm text-[#78716C] dark:text-[#A69C94] mt-1 font-light">
               {policy.subtitle}
             </p>
           </div>
 
-          <div className="space-y-6 text-xs text-[#44403C] leading-relaxed font-light">
+          <div className="space-y-6 text-xs sm:text-sm text-[#44403C] dark:text-[#D5CDC4] leading-relaxed font-light">
             {policy.sections.map((section, idx) => (
               <div key={idx} className="space-y-2">
-                <h3 className="font-serif text-base text-[#1A1918] font-semibold">
+                <h3 className="font-serif text-lg text-[#1A1918] dark:text-[#F5F2ED] font-semibold">
                   {section.heading}
                 </h3>
                 <p>{section.text}</p>
@@ -82,27 +82,27 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ policyType, onClose })
             ))}
           </div>
 
-          <div className="p-4 bg-[#FFFFFF] border border-[#E8E1D9] rounded-lg text-xs space-y-2">
-            <span className="text-[10px] uppercase tracking-wider text-[#8C827A] block font-semibold">
+          <div className="p-4 bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] rounded-lg text-xs sm:text-sm space-y-2">
+            <span className="text-xs uppercase tracking-wider text-[#8C827A] dark:text-[#A69C94] block font-bold">
               Regulatory Queries &amp; Compliance Officer
             </span>
-            <p className="text-[#57534E]">
+            <p className="text-[#57534E] dark:text-[#D5CDC4]">
               Direct contact regarding provenance, custom ATA Carnets, or legal governance:
             </p>
             <a
               href="mailto:consult@yosenamora.com"
-              className="text-[#1A1918] font-semibold hover:text-[#C5A880] flex items-center gap-1 underline"
+              className="text-[#1A1918] dark:text-[#F5F2ED] font-bold hover:text-[#C5A880] dark:hover:text-[#C5A880] flex items-center gap-1.5 underline"
             >
-              <Mail className="w-3.5 h-3.5 text-[#C5A880]" /> consult@yosenamora.com
+              <Mail className="w-4 h-4 text-[#C5A880]" /> consult@yosenamora.com
             </a>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 border-t border-[#E8E1D9] bg-[#FFFFFF] flex justify-end">
+        <div className="px-6 py-3.5 border-t border-[#E8E1D9] dark:border-[#262320] bg-[#FFFFFF] dark:bg-[#181614] flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2 bg-[#1A1918] text-[#FAF8F5] text-xs uppercase tracking-wider font-semibold rounded hover:bg-[#33312E] transition-colors cursor-pointer"
+            className="px-6 py-2.5 bg-[#1A1918] dark:bg-[#F5F2ED] text-[#FAF8F5] dark:text-[#1A1918] text-xs sm:text-sm uppercase tracking-wider font-bold rounded hover:bg-[#33312E] dark:hover:bg-[#E3DDD4] transition-colors cursor-pointer"
           >
             Dismiss
           </button>

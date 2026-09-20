@@ -86,6 +86,8 @@ export type PageView =
   | 'blog'
   | 'story'
   | 'vault'
+  | 'signin'
+  | 'signup'
   | 'checkout';
 
 export type PolicyType = 

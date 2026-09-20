@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Authentication successful. Welcome to the Somuchaura Trade Vault.',
+      message: 'Authentication successful. Welcome to the YosenaMora Trade Vault.',
       token,
       user: safeUser
     });

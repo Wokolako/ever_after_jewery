@@ -49,7 +49,7 @@ export const authController = {
 
       res.status(200).json({
         success: true,
-        message: 'Authentication successful. Welcome to the Somuchaura Trade Vault.',
+        message: 'Authentication successful. Welcome to the YosenaMora Trade Vault.',
         token,
         user: safeUser
       });

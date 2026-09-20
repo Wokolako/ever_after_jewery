@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Gemstone } from '../types';
 import { 
   X, 
-  ShieldCheck, 
-  Sparkles, 
   ShoppingBag, 
   Award, 
   FileText, 
@@ -67,25 +65,25 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label={`Gemstone dossier: ${gemstone.name}`}
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
     >
       <div 
-        className="bg-[#FAF8F5] w-full max-w-4xl rounded-xl border border-[#D5CDC4] shadow-2xl overflow-hidden my-8 relative flex flex-col max-h-[90vh]"
+        className="bg-[#FAF8F5] dark:bg-[#121110] w-full max-w-4xl rounded-xl border border-[#D5CDC4] dark:border-[#2C2926] shadow-2xl overflow-hidden my-8 relative flex flex-col max-h-[90vh] transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-[#E8E1D9] flex items-center justify-between bg-[#FFFFFF]">
+        <div className="px-6 py-4 border-b border-[#E8E1D9] dark:border-[#262320] flex items-center justify-between bg-[#FFFFFF] dark:bg-[#181614]">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8C827A]">
+            <span className="text-xs uppercase font-bold tracking-[0.25em] text-[#8C827A] dark:text-[#A69C94]">
               Vault Reference #{gemstone.certNumber}
             </span>
-            <span className="px-2 py-0.5 rounded bg-[#FAF8F5] border border-[#E0D8CE] text-[10px] uppercase font-semibold text-[#1A1918]">
+            <span className="px-2.5 py-0.5 rounded bg-[#FAF8F5] dark:bg-[#23201D] border border-[#E0D8CE] dark:border-[#38332E] text-xs uppercase font-bold text-[#1A1918] dark:text-[#F5F2ED]">
               {gemstone.status}
             </span>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-[#57534E] hover:text-[#1A1918] hover:bg-[#F2ECE4] rounded-full transition-colors cursor-pointer"
+            className="p-1.5 text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -97,7 +95,7 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             {/* Left Column: Visual Presentation with Macro & Rotation */}
             <div className="md:col-span-6 space-y-4">
-              <div className="relative rounded-lg overflow-hidden border border-[#D5CDC4] bg-[#141413] h-[340px] flex items-center justify-center">
+              <div className="relative rounded-lg overflow-hidden border border-[#D5CDC4] dark:border-[#2A2724] bg-[#141413] h-[340px] flex items-center justify-center">
                 <img
                   src={gemstone.image}
                   alt={gemstone.name}
@@ -110,39 +108,39 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleRotate}
-                      className="px-2.5 py-1 bg-[#1A1918]/80 hover:bg-[#1A1918] text-[#FAF8F5] rounded border border-[#3E3B38] flex items-center gap-1 text-[10px] uppercase tracking-wider backdrop-blur cursor-pointer"
+                      className="px-2.5 py-1 bg-[#1A1918]/80 hover:bg-[#1A1918] text-[#FAF8F5] rounded border border-[#3E3B38] flex items-center gap-1 text-xs uppercase tracking-wider font-semibold backdrop-blur cursor-pointer"
                     >
-                      <RotateCw className="w-3 h-3" /> Rotate 90°
+                      <RotateCw className="w-3.5 h-3.5" /> Rotate 90°
                     </button>
                     <button
                       onClick={() => setZoomMacro(!zoomMacro)}
-                      className={`px-2.5 py-1 rounded border flex items-center gap-1 text-[10px] uppercase tracking-wider backdrop-blur cursor-pointer ${
+                      className={`px-2.5 py-1 rounded border flex items-center gap-1 text-xs uppercase tracking-wider font-semibold backdrop-blur cursor-pointer ${
                         zoomMacro 
                           ? 'bg-[#C5A880] text-[#141413] font-bold border-[#C5A880]' 
                           : 'bg-[#1A1918]/80 hover:bg-[#1A1918] text-[#FAF8F5] border-[#3E3B38]'
                       }`}
                     >
-                      <Maximize2 className="w-3 h-3" /> {zoomMacro ? '40x Active' : '40x Macro'}
+                      <Maximize2 className="w-3.5 h-3.5" /> {zoomMacro ? '40x Active' : '40x Macro'}
                     </button>
                   </div>
-                  <span className="bg-[#FAF8F5]/90 text-[#1A1918] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                  <span className="bg-[#FAF8F5]/95 dark:bg-[#181614]/95 text-[#1A1918] dark:text-[#F5F2ED] px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider shadow-sm">
                     {gemstone.certification} Verified
                   </span>
                 </div>
               </div>
 
               {/* Lab Certification Banner */}
-              <div className="p-3 bg-[#FFFFFF] border border-[#E8E1D9] rounded flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <Award className="w-4 h-4 text-[#C5A880]" />
+              <div className="p-3.5 bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] rounded flex items-center justify-between text-xs sm:text-sm">
+                <div className="flex items-center gap-2.5">
+                  <Award className="w-5 h-5 text-[#C5A880]" />
                   <div>
-                    <span className="font-semibold text-[#1A1918]">{gemstone.certification} Laboratory Certificate</span>
-                    <p className="text-[11px] text-[#78716C]">Dossier ID: {gemstone.certNumber}</p>
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.certification} Laboratory Certificate</span>
+                    <p className="text-xs text-[#78716C] dark:text-[#A69C94]">Dossier ID: {gemstone.certNumber}</p>
                   </div>
                 </div>
                 <button 
                   onClick={() => setActiveTab('certificate')}
-                  className="text-xs uppercase tracking-wider text-[#C5A880] hover:text-[#1A1918] underline font-medium cursor-pointer"
+                  className="text-xs uppercase tracking-wider text-[#C5A880] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] underline font-bold cursor-pointer"
                 >
                   Inspect Certificate
                 </button>
@@ -152,34 +150,34 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
             {/* Right Column: Key Details & Pricing */}
             <div className="md:col-span-6 flex flex-col justify-between space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#8C827A] mb-1">
+                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#8C827A] dark:text-[#A69C94] font-bold mb-1">
                   <span>{gemstone.category}</span>
                   <span>•</span>
                   <span>{gemstone.origin}</span>
                 </div>
-                <h2 className="font-serif text-2xl sm:text-3xl text-[#1A1918] leading-tight">
+                <h2 className="font-serif text-2xl sm:text-3xl text-[#1A1918] dark:text-[#F5F2ED] leading-tight font-normal">
                   {gemstone.name}
                 </h2>
-                <p className="text-xs text-[#57534E] font-light mt-2 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#57534E] dark:text-[#D5CDC4] font-light mt-2 leading-relaxed">
                   {gemstone.description}
                 </p>
 
                 {/* Price Display */}
-                <div className="mt-6 p-4 bg-[#FFFFFF] border border-[#E8E1D9] rounded-lg">
+                <div className="mt-6 p-4.5 bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] rounded-lg">
                   <div className="flex items-baseline justify-between">
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider text-[#8C827A] block">
+                      <span className="text-xs uppercase tracking-wider text-[#8C827A] dark:text-[#A69C94] block font-bold">
                         Wholesale Atelier Valuation
                       </span>
-                      <span className="font-serif text-3xl font-medium text-[#1A1918]">
+                      <span className="font-serif text-3xl font-semibold text-[#1A1918] dark:text-[#F5F2ED]">
                         ${gemstone.priceUSD.toLocaleString()} USD
                       </span>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] uppercase tracking-wider text-[#8C827A] block">
+                      <span className="text-xs uppercase tracking-wider text-[#8C827A] dark:text-[#A69C94] block font-semibold">
                         Unit Rate
                       </span>
-                      <span className="text-sm font-medium text-[#57534E]">
+                      <span className="text-sm font-semibold text-[#57534E] dark:text-[#D5CDC4]">
                         ${gemstone.pricePerCarat.toLocaleString()} / ct
                       </span>
                     </div>
@@ -187,40 +185,40 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
                 </div>
 
                 {/* Quick Spec Highlights */}
-                <div className="grid grid-cols-2 gap-2.5 mt-4 text-xs">
-                  <div className="p-2.5 bg-[#FFFFFF] border border-[#E8E1D9] rounded">
-                    <span className="text-[10px] text-[#8C827A] uppercase block">Carat Weight</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.carat} carats</span>
+                <div className="grid grid-cols-2 gap-2.5 mt-4 text-xs sm:text-sm">
+                  <div className="p-2.5 bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] rounded">
+                    <span className="text-xs text-[#8C827A] dark:text-[#A69C94] uppercase block font-semibold">Carat Weight</span>
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.carat} carats</span>
                   </div>
-                  <div className="p-2.5 bg-[#FFFFFF] border border-[#E8E1D9] rounded">
-                    <span className="text-[10px] text-[#8C827A] uppercase block">Dimensions</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.dimensions}</span>
+                  <div className="p-2.5 bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] rounded">
+                    <span className="text-xs text-[#8C827A] dark:text-[#A69C94] uppercase block font-semibold">Dimensions</span>
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.dimensions}</span>
                   </div>
-                  <div className="p-2.5 bg-[#FFFFFF] border border-[#E8E1D9] rounded">
-                    <span className="text-[10px] text-[#8C827A] uppercase block">Color Grade</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.color}</span>
+                  <div className="p-2.5 bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] rounded">
+                    <span className="text-xs text-[#8C827A] dark:text-[#A69C94] uppercase block font-semibold">Color Grade</span>
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.color}</span>
                   </div>
-                  <div className="p-2.5 bg-[#FFFFFF] border border-[#E8E1D9] rounded">
-                    <span className="text-[10px] text-[#8C827A] uppercase block">Clarity Grade</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.clarity}</span>
+                  <div className="p-2.5 bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] rounded">
+                    <span className="text-xs text-[#8C827A] dark:text-[#A69C94] uppercase block font-semibold">Clarity Grade</span>
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.clarity}</span>
                   </div>
                 </div>
               </div>
 
               {/* Call to Actions */}
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2.5 pt-2">
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={handleAdd}
-                    className={`py-3.5 px-4 rounded text-xs uppercase tracking-[0.15em] font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                    className={`py-3.5 px-4 rounded text-xs sm:text-sm uppercase tracking-[0.15em] font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
                       addedSuccess
                         ? 'bg-[#2E7D32] text-white'
-                        : 'bg-[#1A1918] hover:bg-[#33312E] text-[#FAF8F5]'
+                        : 'bg-[#1A1918] dark:bg-[#F5F2ED] hover:bg-[#33312E] dark:hover:bg-[#E3DDD4] text-[#FAF8F5] dark:text-[#1A1918]'
                     }`}
                   >
                     {addedSuccess ? (
                       <>
-                        <Check className="w-4 h-4" /> Added to Order / Memo
+                        <Check className="w-4 h-4" /> Added to Order
                       </>
                     ) : (
                       <>
@@ -231,10 +229,10 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
 
                   <button
                     onClick={() => onToggleSave(gemstone.id)}
-                    className={`py-3.5 px-4 rounded text-xs uppercase tracking-[0.15em] font-semibold border transition-all cursor-pointer ${
+                    className={`py-3.5 px-4 rounded text-xs sm:text-sm uppercase tracking-[0.15em] font-bold border transition-all cursor-pointer ${
                       isSaved
-                        ? 'border-[#C5A880] bg-[#C5A880]/15 text-[#8C6D44]'
-                        : 'border-[#D5CDC4] bg-[#FFFFFF] text-[#1A1918] hover:border-[#1A1918]'
+                        ? 'border-[#C5A880] bg-[#C5A880]/15 text-[#8C6D44] dark:text-[#C5A880]'
+                        : 'border-[#D5CDC4] dark:border-[#38332E] bg-[#FFFFFF] dark:bg-[#181614] text-[#1A1918] dark:text-[#F5F2ED] hover:border-[#1A1918] dark:hover:border-[#F5F2ED]'
                     }`}
                   >
                     {isSaved ? '★ Saved in Vault' : '☆ Save to Vault'}
@@ -243,9 +241,9 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
 
                 <a
                   href={`mailto:consult@yosenamora.com?subject=Inquiry for Gemstone Reference ${gemstone.certNumber} (${gemstone.name})`}
-                  className="w-full py-2.5 px-4 text-center text-xs uppercase tracking-wider text-[#57534E] hover:text-[#1A1918] border border-dashed border-[#D5CDC4] rounded flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  className="w-full py-2.5 px-4 text-center text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] border border-dashed border-[#D5CDC4] dark:border-[#38332E] rounded flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#C5A880]" />
+                  <Mail className="w-4 h-4 text-[#C5A880]" />
                   <span>Email Atelier Desk (consult@yosenamora.com)</span>
                 </a>
               </div>
@@ -253,12 +251,12 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
           </div>
 
           {/* Tabbed In-Depth Information */}
-          <div className="border-t border-[#E8E1D9] pt-6">
-            <div className="flex border-b border-[#E8E1D9] space-x-6 text-xs uppercase tracking-wider font-medium">
+          <div className="border-t border-[#E8E1D9] dark:border-[#262320] pt-6">
+            <div className="flex border-b border-[#E8E1D9] dark:border-[#262320] space-x-6 text-xs sm:text-sm uppercase tracking-wider font-semibold">
               <button
                 onClick={() => setActiveTab('specs')}
                 className={`pb-3 relative cursor-pointer ${
-                  activeTab === 'specs' ? 'text-[#1A1918] font-bold border-b-2 border-[#1A1918]' : 'text-[#8C827A] hover:text-[#1A1918]'
+                  activeTab === 'specs' ? 'text-[#1A1918] dark:text-[#F5F2ED] font-bold border-b-2 border-[#1A1918] dark:border-[#C5A880]' : 'text-[#8C827A] dark:text-[#A69C94] hover:text-[#1A1918] dark:hover:text-[#F5F2ED]'
                 }`}
               >
                 Comprehensive Gemological Analysis
@@ -266,7 +264,7 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
               <button
                 onClick={() => setActiveTab('certificate')}
                 className={`pb-3 relative cursor-pointer ${
-                  activeTab === 'certificate' ? 'text-[#1A1918] font-bold border-b-2 border-[#1A1918]' : 'text-[#8C827A] hover:text-[#1A1918]'
+                  activeTab === 'certificate' ? 'text-[#1A1918] dark:text-[#F5F2ED] font-bold border-b-2 border-[#1A1918] dark:border-[#C5A880]' : 'text-[#8C827A] dark:text-[#A69C94] hover:text-[#1A1918] dark:hover:text-[#F5F2ED]'
                 }`}
               >
                 {gemstone.certification} Official Dossier
@@ -274,7 +272,7 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
               <button
                 onClick={() => setActiveTab('memo-terms')}
                 className={`pb-3 relative cursor-pointer ${
-                  activeTab === 'memo-terms' ? 'text-[#1A1918] font-bold border-b-2 border-[#1A1918]' : 'text-[#8C827A] hover:text-[#1A1918]'
+                  activeTab === 'memo-terms' ? 'text-[#1A1918] dark:text-[#F5F2ED] font-bold border-b-2 border-[#1A1918] dark:border-[#C5A880]' : 'text-[#8C827A] dark:text-[#A69C94] hover:text-[#1A1918] dark:hover:text-[#F5F2ED]'
                 }`}
               >
                 14-Day Memo &amp; Armored Dispatch
@@ -283,48 +281,48 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
 
             {/* Tab 1: Specs */}
             {activeTab === 'specs' && (
-              <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-                <div className="space-y-3 bg-[#FFFFFF] p-4 rounded border border-[#E8E1D9]">
-                  <h4 className="font-serif text-sm text-[#1A1918] font-semibold border-b border-[#F2ECE4] pb-2">
+              <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+                <div className="space-y-3 bg-[#FFFFFF] dark:bg-[#181614] p-4.5 rounded border border-[#E8E1D9] dark:border-[#262320]">
+                  <h4 className="font-serif text-base text-[#1A1918] dark:text-[#F5F2ED] font-semibold border-b border-[#F2ECE4] dark:border-[#262320] pb-2">
                     Physical &amp; Optical Properties
                   </h4>
-                  <div className="flex justify-between py-1 border-b border-[#F5EFE8]">
-                    <span className="text-[#8C827A]">Shape &amp; Cutting Style:</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.shape} Step / Brilliant Facets</span>
+                  <div className="flex justify-between py-1.5 border-b border-[#F5EFE8] dark:border-[#23201D]">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Shape &amp; Cutting Style:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.shape} Step / Brilliant Facets</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#F5EFE8]">
-                    <span className="text-[#8C827A]">Exact Millimeters:</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.dimensions}</span>
+                  <div className="flex justify-between py-1.5 border-b border-[#F5EFE8] dark:border-[#23201D]">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Exact Millimeters:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.dimensions}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#F5EFE8]">
-                    <span className="text-[#8C827A]">Treatment Classification:</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.treatment}</span>
+                  <div className="flex justify-between py-1.5 border-b border-[#F5EFE8] dark:border-[#23201D]">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Treatment Classification:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.treatment}</span>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-[#8C827A]">Polish / Symmetry:</span>
-                    <span className="font-medium text-[#1A1918]">Excellent / Excellent</span>
+                  <div className="flex justify-between py-1.5">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Polish / Symmetry:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">Excellent / Excellent</span>
                   </div>
                 </div>
 
-                <div className="space-y-3 bg-[#FFFFFF] p-4 rounded border border-[#E8E1D9]">
-                  <h4 className="font-serif text-sm text-[#1A1918] font-semibold border-b border-[#F2ECE4] pb-2">
+                <div className="space-y-3 bg-[#FFFFFF] dark:bg-[#181614] p-4.5 rounded border border-[#E8E1D9] dark:border-[#262320]">
+                  <h4 className="font-serif text-base text-[#1A1918] dark:text-[#F5F2ED] font-semibold border-b border-[#F2ECE4] dark:border-[#262320] pb-2">
                     Provenance &amp; Ethical Chain
                   </h4>
-                  <div className="flex justify-between py-1 border-b border-[#F5EFE8]">
-                    <span className="text-[#8C827A]">Geographic Origin:</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.origin}</span>
+                  <div className="flex justify-between py-1.5 border-b border-[#F5EFE8] dark:border-[#23201D]">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Geographic Origin:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.origin}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#F5EFE8]">
-                    <span className="text-[#8C827A]">Mine Integrity Protocol:</span>
-                    <span className="font-medium text-[#1A1918]">OECD Due Diligence Compliant</span>
+                  <div className="flex justify-between py-1.5 border-b border-[#F5EFE8] dark:border-[#23201D]">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Mine Integrity Protocol:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">OECD Due Diligence Compliant</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#F5EFE8]">
-                    <span className="text-[#8C827A]">Custody Ledger:</span>
-                    <span className="font-medium text-[#1A1918]">Single-Owner Atelier Batch</span>
+                  <div className="flex justify-between py-1.5 border-b border-[#F5EFE8] dark:border-[#23201D]">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Custody Ledger:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">Single-Owner Atelier Batch</span>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-[#8C827A]">Laser Inscription:</span>
-                    <span className="font-medium text-[#1A1918]">{gemstone.certNumber}</span>
+                  <div className="flex justify-between py-1.5">
+                    <span className="text-[#8C827A] dark:text-[#A69C94] font-medium">Laser Inscription:</span>
+                    <span className="font-semibold text-[#1A1918] dark:text-[#F5F2ED]">{gemstone.certNumber}</span>
                   </div>
                 </div>
               </div>
@@ -332,25 +330,25 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
 
             {/* Tab 2: Certificate */}
             {activeTab === 'certificate' && (
-              <div className="pt-6 bg-[#FFFFFF] p-6 rounded border border-[#E8E1D9] space-y-4">
-                <div className="flex items-center justify-between border-b border-[#E8E1D9] pb-4">
+              <div className="pt-6 bg-[#FFFFFF] dark:bg-[#181614] p-6 rounded border border-[#E8E1D9] dark:border-[#262320] space-y-4">
+                <div className="flex items-center justify-between border-b border-[#E8E1D9] dark:border-[#262320] pb-4">
                   <div className="flex items-center gap-3">
                     <FileText className="w-6 h-6 text-[#C5A880]" />
                     <div>
-                      <h4 className="font-serif text-base text-[#1A1918]">
+                      <h4 className="font-serif text-base text-[#1A1918] dark:text-[#F5F2ED]">
                         Official Gemological Institute Monograph
                       </h4>
-                      <p className="text-xs text-[#78716C]">
+                      <p className="text-xs sm:text-sm text-[#78716C] dark:text-[#A69C94]">
                         Accredited Laboratory: {gemstone.certification} • Registration: {gemstone.certNumber}
                       </p>
                     </div>
                   </div>
-                  <span className="text-xs text-[#2E7D32] bg-[#E8F5E9] px-2.5 py-1 rounded font-semibold flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" /> Database Authenticated
+                  <span className="text-xs text-[#2E7D32] bg-[#E8F5E9] dark:bg-[#1B3320] dark:text-[#81C784] px-3 py-1 rounded font-bold flex items-center gap-1">
+                    <Check className="w-4 h-4" /> Database Authenticated
                   </span>
                 </div>
 
-                <div className="p-4 bg-[#FAF8F5] border border-[#E8E1D9] rounded font-mono text-xs space-y-1 text-[#44403C]">
+                <div className="p-4 bg-[#FAF8F5] dark:bg-[#121110] border border-[#E8E1D9] dark:border-[#262320] rounded font-mono text-xs sm:text-sm space-y-1.5 text-[#44403C] dark:text-[#D5CDC4]">
                   <p>CERTIFICATE NUMBER: {gemstone.certNumber}</p>
                   <p>SPECIES / VARIETY: Natural {gemstone.category}</p>
                   <p>WEIGHT: {gemstone.carat} ct</p>
@@ -361,7 +359,7 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
                   <p>COMMENTS: No indications of heating or optical enhancement observed.</p>
                 </div>
 
-                <p className="text-xs text-[#78716C] italic font-light">
+                <p className="text-xs sm:text-sm text-[#78716C] dark:text-[#A69C94] italic font-light">
                   A high-resolution sealed copy with holographic tamper seal is dispatched alongside the physical stone via armored courier.
                 </p>
               </div>
@@ -369,8 +367,8 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
 
             {/* Tab 3: Memo Terms */}
             {activeTab === 'memo-terms' && (
-              <div className="pt-6 bg-[#FFFFFF] p-6 rounded border border-[#E8E1D9] space-y-4 text-xs text-[#57534E]">
-                <div className="flex items-center gap-3 text-[#1A1918]">
+              <div className="pt-6 bg-[#FFFFFF] dark:bg-[#181614] p-6 rounded border border-[#E8E1D9] dark:border-[#262320] space-y-4 text-xs sm:text-sm text-[#57534E] dark:text-[#D5CDC4]">
+                <div className="flex items-center gap-3 text-[#1A1918] dark:text-[#F5F2ED]">
                   <Truck className="w-5 h-5 text-[#C5A880]" />
                   <h4 className="font-serif text-base font-semibold">
                     14-Day Atelier Consignment &amp; Armored Dispatch
@@ -380,17 +378,17 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
                   Verified independent jewellers can request this gemstone on a 14-calendar-day approval memo to present to private commission clients or fit against physical wax models.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                  <div className="p-3 bg-[#FAF8F5] border border-[#E8E1D9] rounded">
-                    <span className="font-semibold text-[#1A1918] block">Fully Insured</span>
-                    <span className="text-[11px] text-[#78716C]">100% underwriters coverage via Malca-Amit &amp; Ferrari.</span>
+                  <div className="p-3.5 bg-[#FAF8F5] dark:bg-[#121110] border border-[#E8E1D9] dark:border-[#262320] rounded">
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED] block mb-1">Fully Insured</span>
+                    <span className="text-xs text-[#78716C] dark:text-[#A69C94]">100% underwriters coverage via Malca-Amit &amp; Ferrari.</span>
                   </div>
-                  <div className="p-3 bg-[#FAF8F5] border border-[#E8E1D9] rounded">
-                    <span className="font-semibold text-[#1A1918] block">Zero Restocking Fee</span>
-                    <span className="text-[11px] text-[#78716C]">Full credit refund if returned in sealed tamper box within 14 days.</span>
+                  <div className="p-3.5 bg-[#FAF8F5] dark:bg-[#121110] border border-[#E8E1D9] dark:border-[#262320] rounded">
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED] block mb-1">Zero Restocking Fee</span>
+                    <span className="text-xs text-[#78716C] dark:text-[#A69C94]">Full credit refund if returned in sealed tamper box within 14 days.</span>
                   </div>
-                  <div className="p-3 bg-[#FAF8F5] border border-[#E8E1D9] rounded">
-                    <span className="font-semibold text-[#1A1918] block">B2B Wire / Invoicing</span>
-                    <span className="text-[11px] text-[#78716C]">Flexible settlement options including Net-30 for vetted partners.</span>
+                  <div className="p-3.5 bg-[#FAF8F5] dark:bg-[#121110] border border-[#E8E1D9] dark:border-[#262320] rounded">
+                    <span className="font-bold text-[#1A1918] dark:text-[#F5F2ED] block mb-1">B2B Wire / Invoicing</span>
+                    <span className="text-xs text-[#78716C] dark:text-[#A69C94]">Flexible settlement options including Net-30 for vetted partners.</span>
                   </div>
                 </div>
               </div>
@@ -400,11 +398,11 @@ export const GemstoneDetailModal: React.FC<GemstoneDetailModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3 border-t border-[#E8E1D9] bg-[#FFFFFF] flex items-center justify-between text-xs text-[#78716C]">
-          <span>Somuchaura / YosenaMora Atelier • London &amp; Genève</span>
+        <div className="px-6 py-3.5 border-t border-[#E8E1D9] dark:border-[#262320] bg-[#FFFFFF] dark:bg-[#181614] flex items-center justify-between text-xs sm:text-sm text-[#78716C] dark:text-[#A69C94]">
+          <span>YosenaMora Atelier • London &amp; Genève</span>
           <button
             onClick={onClose}
-            className="text-xs uppercase tracking-wider text-[#1A1918] hover:text-[#C5A880] font-semibold cursor-pointer"
+            className="text-xs sm:text-sm uppercase tracking-wider text-[#1A1918] dark:text-[#F5F2ED] hover:text-[#C5A880] font-bold cursor-pointer"
           >
             Close Dossier
           </button>

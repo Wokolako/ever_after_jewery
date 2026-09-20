@@ -43,7 +43,7 @@ export const BLOG_POSTS: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80',
     content: [
       'The modern ultra-high-net-worth client no longer queries merely about the 4Cs. Today, the paramount inquiry begins with geological origin and worker conditions at the source pit.',
-      'At Somuchaura, our ethical protocol ensures direct chain-of-custody from artisanal cooperative mines in Ratnapura and Muzo directly to our London gemological laboratory without intermediate speculative dealers.',
+      'At YosenaMora, our ethical protocol ensures direct chain-of-custody from artisanal cooperative mines in Ratnapura and Muzo directly to our London gemological laboratory without intermediate speculative dealers.',
       'For independent ateliers, communicating this pedigree creates an unshakeable narrative advantage over mass-market retail conglomerates.'
     ]
   },
@@ -87,8 +87,8 @@ export const POLICY_CONTENTS: Record<string, { title: string; subtitle: string; 
     subtitle: 'Zero-compromise direct mine traceability and fair compensation charter',
     sections: [
       {
-        heading: '1. The Somuchaura Ethical Protocol',
-        text: 'Somuchaura sources exclusively from verified ethical artisanal cooperatives and certified industrial extraction partners who adhere to the strict OECD Due Diligence Guidance for Responsible Supply Chains. We maintain a zero-tolerance policy against conflict financing and child labor.'
+        heading: '1. The YosenaMora Ethical Protocol',
+        text: 'YosenaMora sources exclusively from verified ethical artisanal cooperatives and certified industrial extraction partners who adhere to the strict OECD Due Diligence Guidance for Responsible Supply Chains. We maintain a zero-tolerance policy against conflict financing and child labor.'
       },
       {
         heading: '2. Direct Mine Origin Verification',
@@ -128,7 +128,7 @@ export const POLICY_CONTENTS: Record<string, { title: string; subtitle: string; 
       },
       {
         heading: '2. Title & Risk of Loss',
-        text: 'Title transfers upon settled bank wire clearance. Until such clearance, all gems consigned on memo remain the sole property of Somuchaura / YosenaMora Atelier LLC.'
+        text: 'Title transfers upon settled bank wire clearance. Until such clearance, all gems consigned on memo remain the sole property of YosenaMora Atelier LLC.'
       }
     ]
   },
@@ -162,7 +162,7 @@ export const POLICY_CONTENTS: Record<string, { title: string; subtitle: string; 
     sections: [
       {
         heading: 'Corporate Seat',
-        text: 'Somuchaura Atelier & Diamond Suppliers | YosenaMora International Vault Suite: 14 Hatton Garden, London EC1N 8AT, United Kingdom. Secondary Trade Desk: Rue du Rhône, 1204 Genève, Switzerland. Registered Contact: consult@yosenamora.com'
+        text: 'YosenaMora Atelier & Diamond Suppliers | International Vault Suite: 14 Hatton Garden, London EC1N 8AT, United Kingdom. Secondary Trade Desk: Rue du Rhône, 1204 Genève, Switzerland. Registered Contact: consult@yosenamora.com'
       }
     ]
   },

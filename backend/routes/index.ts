@@ -12,7 +12,7 @@ const apiRouter = Router();
 apiRouter.get('/health', (req, res) => {
   res.status(200).json({
     status: 'online',
-    service: 'Somuchaura Haute Vaults API',
+    service: 'YosenaMora Vaults API',
     version: '1.0.0',
     timestamp: new Date().toISOString()
   });

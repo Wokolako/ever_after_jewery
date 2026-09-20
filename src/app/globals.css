@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -8,8 +10,16 @@
   
   body {
     font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
     background-color: #FAF8F5;
     color: #1A1918;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .dark body {
+    background-color: #0F0E0D;
+    color: #F5F2ED;
   }
 
   .font-serif {
@@ -23,16 +33,25 @@
 
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
   background: #F4EFEA;
 }
+.dark ::-webkit-scrollbar-track {
+  background: #181614;
+}
 ::-webkit-scrollbar-thumb {
   background: #D5CDC4;
-  border-radius: 3px;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #383430;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #B3A89D;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #575048;
 }

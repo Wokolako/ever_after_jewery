@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { GEMSTONES_CATALOG } from './data/gemstones';
 import { Gemstone, CartItem, PageView, PolicyType, BookingAppointment } from './types';
+import { useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { DiamondsShowcase } from './components/DiamondsShowcase';
@@ -12,14 +13,18 @@ import { GemstoneDetailModal } from './components/GemstoneDetailModal';
 import { BookingSection } from './components/BookingSection';
 import { WholesaleQuoteCalculator } from './components/WholesaleQuoteCalculator';
 import { MembersVault } from './components/MembersVault';
+import { AuthPage } from './components/AuthPage';
 import { BlogSection } from './components/BlogSection';
+import { JournalCarousel } from './components/JournalCarousel';
 import { StoryAndEthicsSection } from './components/StoryAndEthicsSection';
 import { CartDrawer } from './components/CartDrawer';
 import { PolicyModal } from './components/PolicyModal';
 import { SiteGuideModal } from './components/SiteGuideModal';
 import { Footer } from './components/Footer';
+import { ChatWidget } from './components/ChatWidget';
 
 export default function App() {
+  const { user, isRestoring } = useAuth();
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [selectedGemstone, setSelectedGemstone] = useState<Gemstone | null>(null);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -31,11 +36,11 @@ export default function App() {
   // Load / save cart from localStorage
   useEffect(() => {
     try {
-      const savedCart = localStorage.getItem('somuchaura_cart');
+      const savedCart = localStorage.getItem('yosenamora_cart');
       if (savedCart) {
         setCartItems(JSON.parse(savedCart));
       }
-      const savedVault = localStorage.getItem('somuchaura_vault');
+      const savedVault = localStorage.getItem('yosenamora_vault');
       if (savedVault) {
         setSavedStoneIds(JSON.parse(savedVault));
       }
@@ -56,7 +61,7 @@ export default function App() {
         updated = [...prev, { gemstone: stone, quantity: 1, addedAt: new Date().toISOString() }];
       }
       try {
-        localStorage.setItem('somuchaura_cart', JSON.stringify(updated));
+        localStorage.setItem('yosenamora_cart', JSON.stringify(updated));
       } catch (e) {}
       return updated;
     });
@@ -66,7 +71,7 @@ export default function App() {
     setCartItems((prev) => {
       const updated = prev.filter((item) => item.gemstone.id !== stoneId);
       try {
-        localStorage.setItem('somuchaura_cart', JSON.stringify(updated));
+        localStorage.setItem('yosenamora_cart', JSON.stringify(updated));
       } catch (e) {}
       return updated;
     });
@@ -75,7 +80,7 @@ export default function App() {
   const handleClearCart = () => {
     setCartItems([]);
     try {
-      localStorage.removeItem('somuchaura_cart');
+      localStorage.removeItem('yosenamora_cart');
     } catch (e) {}
   };
 
@@ -85,16 +90,23 @@ export default function App() {
         ? prev.filter((id) => id !== stoneId)
         : [...prev, stoneId];
       try {
-        localStorage.setItem('somuchaura_vault', JSON.stringify(updated));
+        localStorage.setItem('yosenamora_vault', JSON.stringify(updated));
       } catch (e) {}
       return updated;
     });
   };
 
+  // Any in-page navigation also returns the viewer to the top — footer links in
+  // particular are clicked from the very bottom of a long page.
+  const handleNavigate = (page: PageView) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const savedStonesList = GEMSTONES_CATALOG.filter((s) => savedStoneIds.includes(s.id));
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1918] flex flex-col font-sans selection:bg-[#2C2A29] selection:text-[#FAF8F5]">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-[#0F0E0D] text-[#1A1918] dark:text-[#F5F2ED] flex flex-col font-sans selection:bg-[#2C2A29] selection:text-[#FAF8F5] transition-colors duration-200">
       
       {/* Top Navigation */}
       <Navbar
@@ -103,48 +115,51 @@ export default function App() {
         cartCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
         openCart={() => setIsCartOpen(true)}
         openSiteGuide={() => setIsSiteGuideOpen(true)}
-        openVault={() => setCurrentPage('vault')}
+        openVault={() => handleNavigate(user ? 'vault' : 'signin')}
       />
 
       {/* Main Routed Content */}
       <main className="flex-1">
         {currentPage === 'home' && (
           <>
-            {/* Section 1: Hero with Option A vs B switch */}
-            <HeroSection onNavigate={setCurrentPage} />
+            {/* Section 1: Hero */}
+            <HeroSection onNavigate={handleNavigate} />
 
             {/* Section 2 & 3: "yosenamora" & "All our diamonds, worth millions." & 3 Containers */}
             <DiamondsShowcase
               diamonds={GEMSTONES_CATALOG}
               onSelectStone={(stone) => setSelectedGemstone(stone)}
-              onNavigate={setCurrentPage}
+              onNavigate={handleNavigate}
             />
 
             {/* Section 4: "Polished, clean, minted!" & Gemstone Macro */}
-            <QualityPromise onNavigate={setCurrentPage} />
+            <QualityPromise onNavigate={handleNavigate} />
 
             {/* Quick Sourcing Calculator Teaser */}
-            <section className="py-16 bg-[#F5EFE8] border-b border-[#E8E1D9] text-center px-4">
+            <section className="py-16 bg-[#F5EFE8] dark:bg-[#181614] border-b border-[#E8E1D9] dark:border-[#2A2724] text-center px-4 transition-colors">
               <div className="max-w-4xl mx-auto space-y-4">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[#8C827A] font-bold">
+                <span className="text-xs uppercase tracking-[0.3em] text-[#8C827A] dark:text-[#A69B8F] font-bold">
                   B2B Jeweller Tools
                 </span>
-                <h3 className="font-serif text-3xl sm:text-4xl text-[#1A1918]">
+                <h3 className="font-serif text-3xl sm:text-4xl text-[#1A1918] dark:text-[#F5F2ED]">
                   Calculate Custom Wholesale Parcel Allocations
                 </h3>
-                <p className="text-xs sm:text-sm text-[#57534E] max-w-xl mx-auto font-light leading-relaxed">
+                <p className="text-sm sm:text-base text-[#57534E] dark:text-[#C4BCB3] max-w-xl mx-auto font-light leading-relaxed">
                   Need specific calibrated emerald cuts for an eternity band or an unheated Ceylon sapphire solitaire? Calculate real-time trade prices with our instant quote desk.
                 </p>
                 <div className="pt-2">
                   <button
-                    onClick={() => setCurrentPage('quote-calc')}
-                    className="px-7 py-3 bg-[#1A1918] text-[#FAF8F5] rounded text-xs uppercase tracking-wider font-semibold hover:bg-[#33312E] transition-colors cursor-pointer shadow-md"
+                    onClick={() => handleNavigate('quote-calc')}
+                    className="px-7 py-3 bg-[#1A1918] dark:bg-[#F5F2ED] text-[#FAF8F5] dark:text-[#1A1918] rounded text-xs uppercase tracking-wider font-semibold hover:bg-[#33312E] dark:hover:bg-[#E3DDD4] transition-colors cursor-pointer shadow-md"
                   >
                     Open Wholesale Quote Calculator
                   </button>
                 </div>
               </div>
             </section>
+
+            {/* Journal Stories Carousel (Journal is no longer in the header nav) */}
+            <JournalCarousel onNavigate={handleNavigate} />
           </>
         )}
 
@@ -167,12 +182,27 @@ export default function App() {
         )}
 
         {currentPage === 'vault' && (
-          <MembersVault
-            savedStones={savedStonesList}
-            onSelectStone={(stone) => setSelectedGemstone(stone)}
-            onRemoveSaved={handleToggleSaveStone}
-            onNavigateShop={() => setCurrentPage('shop')}
-          />
+          user ? (
+            <MembersVault
+              user={user}
+              savedStones={savedStonesList}
+              onSelectStone={(stone) => setSelectedGemstone(stone)}
+              onRemoveSaved={handleToggleSaveStone}
+              onNavigateShop={() => handleNavigate('shop')}
+            />
+          ) : (
+            // Session may still be restoring from a stored token — hold rather than
+            // flashing the sign-in form at a member who is already signed in.
+            !isRestoring && <AuthPage mode="signin" onNavigate={handleNavigate} />
+          )
+        )}
+
+        {currentPage === 'signin' && (
+          <AuthPage mode="signin" onNavigate={handleNavigate} />
+        )}
+
+        {currentPage === 'signup' && (
+          <AuthPage mode="signup" onNavigate={handleNavigate} />
         )}
 
         {currentPage === 'blog' && (
@@ -212,9 +242,12 @@ export default function App() {
         onClose={() => setIsSiteGuideOpen(false)}
       />
 
+      {/* Floating AI Concierge */}
+      <ChatWidget />
+
       {/* Global Footer */}
       <Footer
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
         onOpenPolicy={(policy) => setActivePolicy(policy)}
       />
 

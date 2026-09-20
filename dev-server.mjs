@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import path from 'path';
 
 const rawArgs = process.argv.slice(2);
 let port = '3000';
@@ -26,9 +27,10 @@ for (let i = 0; i < rawArgs.length; i++) {
 
 const nextArgs = ['dev', '-p', port, '-H', host, ...extraArgs];
 
-const child = spawn('./node_modules/.bin/next', nextArgs, {
+const nextBin = path.join('node_modules', 'next', 'dist', 'bin', 'next');
+
+const child = spawn(process.execPath, [nextBin, ...nextArgs], {
   stdio: 'inherit',
-  shell: true,
 });
 
 child.on('exit', (code) => {

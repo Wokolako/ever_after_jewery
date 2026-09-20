@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GemCategory } from '../types';
-import { Calculator, Check, ArrowRight, FileSpreadsheet, Shield, Sparkles } from 'lucide-react';
+import { Calculator, Check, ArrowRight, Shield } from 'lucide-react';
 
 export const WholesaleQuoteCalculator: React.FC = () => {
   const [gemType, setGemType] = useState<GemCategory>('Diamond');
@@ -34,18 +34,18 @@ export const WholesaleQuoteCalculator: React.FC = () => {
   };
 
   return (
-    <div className="py-12 lg:py-20 bg-[#FAF8F5]">
+    <div className="py-12 lg:py-20 bg-[#FAF8F5] dark:bg-[#0F0E0D] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-2">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#8C827A] font-semibold">
+          <span className="text-xs sm:text-sm uppercase tracking-[0.3em] text-[#8C827A] dark:text-[#A69C94] font-bold">
             B2B Atelier Financial Desk
           </span>
-          <h1 className="font-serif text-3xl sm:text-5xl text-[#1A1918]">
+          <h1 className="font-serif text-3xl sm:text-5xl text-[#1A1918] dark:text-[#F5F2ED] font-normal">
             Wholesale Parcel &amp; Custom Sourcing Quote
           </h1>
-          <p className="text-sm sm:text-base text-[#57534E] font-light leading-relaxed">
+          <p className="text-sm sm:text-base text-[#57534E] dark:text-[#D5CDC4] font-light leading-relaxed">
             Calculate instant estimated trade valuations for single bespoke commission stones or calibrated parcel layouts. Generate formal GIA memo paperwork in real time.
           </p>
         </div>
@@ -53,8 +53,8 @@ export const WholesaleQuoteCalculator: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Form: Parameter Selectors */}
-          <div className="lg:col-span-7 bg-[#FFFFFF] p-6 sm:p-8 rounded-xl border border-[#E8E1D9] shadow-sm space-y-6">
-            <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-[#1A1918] pb-3 border-b border-[#F2ECE4] flex items-center gap-2">
+          <div className="lg:col-span-7 bg-[#FFFFFF] dark:bg-[#181614] p-6 sm:p-8 rounded-xl border border-[#E8E1D9] dark:border-[#262320] shadow-sm space-y-6">
+            <h3 className="text-xs sm:text-sm uppercase tracking-[0.2em] font-bold text-[#1A1918] dark:text-[#F5F2ED] pb-3 border-b border-[#F2ECE4] dark:border-[#262320] flex items-center gap-2">
               <Calculator className="w-4 h-4 text-[#C5A880]" />
               <span>Configure Sourcing Specifications</span>
             </h3>
@@ -62,13 +62,13 @@ export const WholesaleQuoteCalculator: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Gem Type */}
               <div>
-                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A69C94] mb-1.5 font-semibold">
                   Gemstone Variety
                 </label>
                 <select
                   value={gemType}
                   onChange={(e) => setGemType(e.target.value as GemCategory)}
-                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none focus:border-[#1A1918]"
+                  className="w-full bg-[#FAF8F5] dark:bg-[#121110] border border-[#E0D8CE] dark:border-[#332F2B] rounded px-3 py-2.5 text-xs sm:text-sm text-[#1A1918] dark:text-[#F5F2ED] focus:outline-none focus:border-[#1A1918] dark:focus:border-[#C5A880] font-medium"
                 >
                   <option value="Diamond">Investment Diamond (Type IIa / Fancy)</option>
                   <option value="Sapphire">Ceylon / Kashmir Sapphire (Unheated)</option>
@@ -81,13 +81,13 @@ export const WholesaleQuoteCalculator: React.FC = () => {
 
               {/* Shape */}
               <div>
-                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A69C94] mb-1.5 font-semibold">
                   Cut Profile
                 </label>
                 <select
                   value={shape}
                   onChange={(e) => setShape(e.target.value)}
-                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none focus:border-[#1A1918]"
+                  className="w-full bg-[#FAF8F5] dark:bg-[#121110] border border-[#E0D8CE] dark:border-[#332F2B] rounded px-3 py-2.5 text-xs sm:text-sm text-[#1A1918] dark:text-[#F5F2ED] focus:outline-none focus:border-[#1A1918] dark:focus:border-[#C5A880] font-medium"
                 >
                   <option value="Emerald Cut">Emerald Cut (Step Facet)</option>
                   <option value="Cushion">Antique / Modified Cushion</option>
@@ -102,10 +102,10 @@ export const WholesaleQuoteCalculator: React.FC = () => {
             {/* Carat Slider */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A69C94] font-semibold">
                   Target Carat Weight (Per Stone)
                 </label>
-                <span className="font-serif text-base font-semibold text-[#1A1918]">
+                <span className="font-serif text-lg font-bold text-[#1A1918] dark:text-[#F5F2ED]">
                   {caratSize} ct
                 </span>
               </div>
@@ -116,11 +116,11 @@ export const WholesaleQuoteCalculator: React.FC = () => {
                 step="0.25"
                 value={caratSize}
                 onChange={(e) => setCaratSize(parseFloat(e.target.value))}
-                className="w-full accent-[#1A1918] cursor-pointer"
+                className="w-full accent-[#1A1918] dark:accent-[#C5A880] cursor-pointer h-2 bg-[#E0D8CE] dark:bg-[#2C2926] rounded-lg"
               />
-              <div className="flex justify-between text-[10px] text-[#A8A29E] mt-1">
-                <span>0.75ct (Atelier Accent)</span>
-                <span>5.0ct (High Solitaire)</span>
+              <div className="flex justify-between text-xs text-[#8C827A] dark:text-[#A69C94] mt-1.5 font-medium">
+                <span>0.75ct (Accent)</span>
+                <span>5.0ct (Solitaire)</span>
                 <span>15.0ct (Museum Investment)</span>
               </div>
             </div>
@@ -128,13 +128,13 @@ export const WholesaleQuoteCalculator: React.FC = () => {
             {/* Clarity Tier & Quantity */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A69C94] mb-1.5 font-semibold">
                   Clarity &amp; Purity Tier
                 </label>
                 <select
                   value={clarityTier}
                   onChange={(e) => setClarityTier(e.target.value as any)}
-                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none focus:border-[#1A1918]"
+                  className="w-full bg-[#FAF8F5] dark:bg-[#121110] border border-[#E0D8CE] dark:border-[#332F2B] rounded px-3 py-2.5 text-xs sm:text-sm text-[#1A1918] dark:text-[#F5F2ED] focus:outline-none font-medium"
                 >
                   <option value="Investment Grade (FL/VVS)">Investment Grade (FL / IF / VVS1)</option>
                   <option value="Commercial Fine (VS)">Commercial Fine (VS1 / VS2 Eye-Clean)</option>
@@ -143,7 +143,7 @@ export const WholesaleQuoteCalculator: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+                <label className="block text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A69C94] mb-1.5 font-semibold">
                   Quantity / Matching Parcel Units
                 </label>
                 <input
@@ -152,20 +152,20 @@ export const WholesaleQuoteCalculator: React.FC = () => {
                   max="50"
                   value={quantity}
                   onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none"
+                  className="w-full bg-[#FAF8F5] dark:bg-[#121110] border border-[#E0D8CE] dark:border-[#332F2B] rounded px-3 py-2.5 text-xs sm:text-sm text-[#1A1918] dark:text-[#F5F2ED] focus:outline-none font-medium"
                 />
               </div>
             </div>
 
             {/* Origin & Provenance */}
             <div>
-              <label className="block text-xs uppercase tracking-wider text-[#78716C] mb-1.5 font-medium">
+              <label className="block text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A69C94] mb-1.5 font-semibold">
                 Origin &amp; Ethical Guarantee
               </label>
               <select
                 value={originPreference}
                 onChange={(e) => setOriginPreference(e.target.value)}
-                className="w-full bg-[#FAF8F5] border border-[#E0D8CE] rounded px-3 py-2 text-xs text-[#1A1918] focus:outline-none"
+                className="w-full bg-[#FAF8F5] dark:bg-[#121110] border border-[#E0D8CE] dark:border-[#332F2B] rounded px-3 py-2.5 text-xs sm:text-sm text-[#1A1918] dark:text-[#F5F2ED] focus:outline-none font-medium"
               >
                 <option value="Ethical Certified Co-op">Verified Artisanal Co-op (Sri Lanka / Colombia / Canada)</option>
                 <option value="Historical European Estate">Single-Owner Historical European Estate Vault</option>
@@ -175,53 +175,53 @@ export const WholesaleQuoteCalculator: React.FC = () => {
           </div>
 
           {/* Right Summary: Live Valuation Card */}
-          <div className="lg:col-span-5 bg-[#141413] text-[#FAF8F5] p-6 sm:p-8 rounded-xl border border-[#2E2C2A] shadow-xl space-y-6">
+          <div className="lg:col-span-5 bg-[#141413] dark:bg-[#0A0908] text-[#FAF8F5] p-6 sm:p-8 rounded-xl border border-[#2E2C2A] dark:border-[#22201D] shadow-2xl space-y-6">
             <div className="flex items-center justify-between pb-3 border-b border-[#2C2B29]">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#C5A880] font-bold">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#C5A880] font-bold">
                 Live Wholesale Estimate
               </span>
-              <span className="text-[10px] text-[#A8A29E]">Currency: USD ($)</span>
+              <span className="text-xs text-[#A8A29E] font-medium">Currency: USD ($)</span>
             </div>
 
-            <div className="space-y-3 text-xs">
-              <div className="flex justify-between py-1 border-b border-[#262523]">
+            <div className="space-y-3 text-xs sm:text-sm">
+              <div className="flex justify-between py-1.5 border-b border-[#262523]">
                 <span className="text-[#A8A29E]">Selected Profile:</span>
-                <span className="font-medium text-[#FAF8F5] text-right">{caratSize}ct {shape} {gemType}</span>
+                <span className="font-bold text-[#FAF8F5] text-right">{caratSize}ct {shape} {gemType}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-[#262523]">
+              <div className="flex justify-between py-1.5 border-b border-[#262523]">
                 <span className="text-[#A8A29E]">Clarity Standard:</span>
-                <span className="font-medium text-[#FAF8F5]">{clarityTier.split('(')[0]}</span>
+                <span className="font-bold text-[#FAF8F5]">{clarityTier.split('(')[0]}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-[#262523]">
+              <div className="flex justify-between py-1.5 border-b border-[#262523]">
                 <span className="text-[#A8A29E]">Batch Quantity:</span>
-                <span className="font-medium text-[#FAF8F5]">{quantity} {quantity > 1 ? 'pieces (Matched Layout)' : 'solitaire stone'}</span>
+                <span className="font-bold text-[#FAF8F5]">{quantity} {quantity > 1 ? 'pieces (Matched Layout)' : 'solitaire stone'}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-[#262523]">
+              <div className="flex justify-between py-1.5 border-b border-[#262523]">
                 <span className="text-[#A8A29E]">Est. Rate per Carat:</span>
-                <span className="font-medium text-[#C5A880]">${estimatedPerCarat.toLocaleString()} / ct</span>
+                <span className="font-bold text-[#C5A880]">${estimatedPerCarat.toLocaleString()} / ct</span>
               </div>
             </div>
 
             {/* Total Valuation Block */}
-            <div className="bg-[#1C1B19] p-5 rounded-lg border border-[#3E3B38] space-y-1">
-              <span className="text-[10px] uppercase tracking-wider text-[#A8A29E] block">
+            <div className="bg-[#1C1B19] dark:bg-[#121110] p-5 rounded-lg border border-[#3E3B38] space-y-1">
+              <span className="text-xs uppercase tracking-wider text-[#A8A29E] block font-semibold">
                 Estimated Trade Valuation (Gross Ex-VAT)
               </span>
               <div className="font-serif text-3xl sm:text-4xl text-[#FAF8F5] font-normal">
-                ${estimatedTotal.toLocaleString()} <span className="text-sm font-sans text-[#C5A880]">USD</span>
+                ${estimatedTotal.toLocaleString()} <span className="text-sm font-sans text-[#C5A880] font-bold">USD</span>
               </div>
-              <p className="text-[10px] text-[#78716C] pt-1">
+              <p className="text-xs text-[#999188] pt-1">
                 Subject to final GIA/Gübelin weight certificates and 14-day approval memo review.
               </p>
             </div>
 
             {submitted ? (
-              <div className="p-4 bg-[#1E3A20] border border-[#2E7D32] rounded-lg text-xs space-y-1 text-[#E8F5E9]">
-                <div className="flex items-center gap-1.5 font-bold">
+              <div className="p-4 bg-[#1E3A20] border border-[#2E7D32] rounded-lg text-xs sm:text-sm space-y-1 text-[#E8F5E9]">
+                <div className="flex items-center gap-1.5 font-bold text-sm">
                   <Check className="w-4 h-4 text-[#81C784]" /> Allocation Dossier Initiated
                 </div>
-                <p className="text-[11px] text-[#C8E6C9] font-light">
-                  Our gemological desk has registered your specs. A senior specialist will follow up from <span className="underline">consult@yosenamora.com</span> within 4 hours.
+                <p className="text-xs text-[#C8E6C9] font-light">
+                  Our gemological desk has registered your specs. A senior specialist will follow up from <span className="underline font-semibold">consult@yosenamora.com</span> within 4 hours.
                 </p>
               </div>
             ) : (
@@ -230,11 +230,11 @@ export const WholesaleQuoteCalculator: React.FC = () => {
                   type="email"
                   required
                   placeholder="Enter your jeweller atelier email..."
-                  className="w-full bg-[#242321] border border-[#3E3B38] rounded px-3.5 py-2.5 text-xs text-[#FAF8F5] placeholder-[#78716C] focus:outline-none focus:border-[#C5A880]"
+                  className="w-full bg-[#242321] border border-[#3E3B38] rounded px-4 py-3 text-xs sm:text-sm text-[#FAF8F5] placeholder-[#8C827A] focus:outline-none focus:border-[#C5A880]"
                 />
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-[#FAF8F5] text-[#141413] hover:bg-[#E2DDD6] rounded text-xs uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+                  className="w-full py-3.5 bg-[#FAF8F5] text-[#141413] hover:bg-[#E2DDD6] rounded text-xs sm:text-sm uppercase tracking-[0.2em] font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg"
                 >
                   <span>Request Formal Memo Dossier</span>
                   <ArrowRight className="w-4 h-4" />
@@ -242,8 +242,8 @@ export const WholesaleQuoteCalculator: React.FC = () => {
               </form>
             )}
 
-            <div className="flex items-center gap-2 text-[10px] text-[#78716C] justify-center">
-              <Shield className="w-3.5 h-3.5 text-[#C5A880]" />
+            <div className="flex items-center gap-2 text-xs text-[#A8A29E] justify-center">
+              <Shield className="w-4 h-4 text-[#C5A880]" />
               <span>Full confidentiality guaranteed under bilateral NDA</span>
             </div>
           </div>

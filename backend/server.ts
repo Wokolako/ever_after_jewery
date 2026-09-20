@@ -40,7 +40,7 @@ if (process.argv[1] && process.argv[1].includes('server')) {
   const PORT = process.env.BACKEND_PORT || 3001;
   const app = createServer();
   app.listen(PORT, () => {
-    console.log(`[Somuchaura Backend] Server running on port ${PORT}`);
+    console.log(`[YosenaMora Backend] Server running on port ${PORT}`);
   });
 }
 
