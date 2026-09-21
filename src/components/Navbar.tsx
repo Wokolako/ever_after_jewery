@@ -65,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 dark:bg-[#0F0E0D]/95 backdrop-blur-md border-b border-[#EBE5DE] dark:border-[#262320] transition-colors">
       {/* Top micro announcement bar */}
-      <div className="bg-[#1A1918] dark:bg-[#080707] text-[#FAF8F5] text-xs sm:text-sm py-2 px-4 text-center font-sans tracking-wider flex items-center justify-center gap-3 border-b border-[#2C2926] dark:border-[#1A1816]">
+      <div className="bg-[#1A1918] dark:bg-[#080707] text-[#FAF8F5] text-xs sm:text-sm py-2.5 sm:py-3 px-4 text-center font-sans tracking-wider flex items-center justify-center gap-3 border-b border-[#2C2926] dark:border-[#1A1816]">
         <span className="inline-block w-2 h-2 rounded-full bg-[#C5A880] animate-pulse"></span>
         <span className="font-medium">PRIVATE VAULT ACCESS: Unheated Ceylon Sapphires & Type IIa Diamonds Available on Memo</span>
         <span className="text-[#C5A880] hidden sm:inline">|</span>
@@ -79,23 +79,23 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24 lg:h-28">
           {/* Brand Logo */}
           <button
             id="brand-logo-btn"
             onClick={() => handleNav('home')}
             className="flex flex-col text-left group focus:outline-none shrink-0 cursor-pointer"
           >
-            <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal tracking-[0.08em] sm:tracking-[0.1em] text-[#1A1918] dark:text-[#F5F2ED] group-hover:text-[#6E6760] dark:group-hover:text-[#D5CDC4] transition-colors whitespace-nowrap">
+            <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[0.08em] sm:tracking-[0.1em] text-[#1A1918] dark:text-[#F5F2ED] group-hover:text-[#6E6760] dark:group-hover:text-[#D5CDC4] transition-colors whitespace-nowrap leading-none">
               YOSENAMORA
             </span>
-            <span className="font-sans text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.35em] text-[#78716C] dark:text-[#A69C94] uppercase -mt-0.5 whitespace-nowrap font-medium">
+            <span className="font-sans text-[11px] sm:text-[13px] tracking-[0.25em] sm:tracking-[0.35em] text-[#78716C] dark:text-[#A69C94] uppercase mt-1.5 whitespace-nowrap font-medium">
               Gemstone Atelier
             </span>
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-4 2xl:space-x-6">
+          <nav className="hidden lg:flex items-center space-x-7 xl:space-x-9 2xl:space-x-11">
             {navLinks.map((link) => {
               const isActive = currentPage === link.id;
               return (
@@ -104,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   id={`nav-link-${link.id}`}
                   onClick={() => handleNav(link.id)}
                   title={link.label}
-                  className={`text-xs sm:text-sm tracking-wide uppercase transition-all py-1.5 relative whitespace-nowrap cursor-pointer ${
+                  className={`text-sm lg:text-[0.9375rem] tracking-[0.1em] uppercase transition-all py-2.5 relative whitespace-nowrap cursor-pointer ${
                     isActive
                       ? 'text-[#1A1918] dark:text-[#F5F2ED] font-bold'
                       : 'text-[#57534E] dark:text-[#B5ADA4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] font-medium'
@@ -120,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Right Action Icons & Theme Toggle */}
-          <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4 shrink-0">
+          <div className="flex items-center space-x-3 sm:space-x-4 lg:space-x-5 shrink-0">
             {/* Theme Switcher Toggle */}
             <ThemeToggle variant="full" className="hidden sm:inline-flex" />
             <ThemeToggle variant="compact" className="sm:hidden" />
@@ -130,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="guide-inspect-btn"
               onClick={openSiteGuide}
               title="Inspect Site Architecture"
-              className="hidden md:flex px-3 py-1.5 text-xs font-medium tracking-wider uppercase border border-[#D5CDC4] dark:border-[#383430] rounded bg-[#FAF8F5] dark:bg-[#181614] hover:border-[#1A1918] dark:hover:border-[#F5F2ED] text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] transition-colors items-center gap-1.5 cursor-pointer"
+              className="hidden md:flex px-4 py-2.5 text-xs font-medium tracking-wider uppercase border border-[#D5CDC4] dark:border-[#383430] rounded bg-[#FAF8F5] dark:bg-[#181614] hover:border-[#1A1918] dark:hover:border-[#F5F2ED] text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] transition-colors items-center gap-2 cursor-pointer"
             >
               <Info className="w-4 h-4 text-[#C5A880]" />
               <span>Guide</span>
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               title={user ? `${user.companyName} — Member Vault` : 'Sign in to your trade account'}
               className="p-2 text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors relative flex items-center gap-2 cursor-pointer"
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-serif font-bold shadow-sm ${
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-serif font-bold shadow-sm ${
                 user
                   ? 'bg-[#1A1918] dark:bg-[#FAF8F5] text-[#FAF8F5] dark:text-[#1A1918] border-2 border-[#C5A880]'
                   : 'bg-[#1A1918] dark:bg-[#FAF8F5] text-[#FAF8F5] dark:text-[#1A1918]'
@@ -151,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {initials}
               </div>
               {!user && (
-                <span className="hidden xl:inline text-xs uppercase tracking-wider font-semibold whitespace-nowrap">
+                <span className="hidden xl:inline text-[13px] uppercase tracking-wider font-semibold whitespace-nowrap">
                   Sign In
                 </span>
               )}
@@ -166,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 aria-label="Sign out"
                 className="hidden md:flex p-2 text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors cursor-pointer"
               >
-                <LogOut className="w-4 h-4" />
+                <LogOut className="w-5 h-5" />
               </button>
             )}
 
@@ -177,9 +177,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               title="View Vault Order / Memo Cart"
               className="p-2 text-[#1A1918] dark:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors relative cursor-pointer"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-6 h-6" />
               {cartCount > 0 && (
-                <span className="absolute top-1 right-1 bg-[#1A1918] dark:bg-[#C5A880] text-[#FAF8F5] dark:text-[#1A1918] text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute top-0.5 right-0.5 bg-[#1A1918] dark:bg-[#C5A880] text-[#FAF8F5] dark:text-[#1A1918] text-[11px] w-[18px] h-[18px] rounded-full flex items-center justify-center font-bold">
                   {cartCount}
                 </span>
               )}
@@ -191,7 +191,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 text-[#1A1918] dark:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded cursor-pointer"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
             </button>
           </div>
         </div>
