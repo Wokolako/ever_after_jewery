@@ -2,8 +2,8 @@ import { GEMSTONES_CATALOG } from '../data/gemstones';
 import { CONSULTATION_SERVICES, BLOG_POSTS, POLICY_CONTENTS } from '../data/content';
 
 /** Public inquiry channel offered whenever the assistant cannot answer from site data. */
-export const WHATSAPP_NUMBER = '+44 7700 900123';
-export const WHATSAPP_URL = 'https://wa.me/447700900123';
+export const WHATSAPP_NUMBER = '+265993287979';
+export const WHATSAPP_URL = 'https://wa.me/265993287979';
 export const CONTACT_EMAIL = 'consult@yosenamora.com';
 
 const usd = (n: number) =>
@@ -17,7 +17,7 @@ const usd = (n: number) =>
 export function buildSiteKnowledge(): string {
   const inventory = GEMSTONES_CATALOG.map((g) =>
     [
-      `- ${g.name}`,
+      `- ${g.name} (id: ${g.id}, link: #stone=${g.id})`,
       `  category: ${g.category} | shape: ${g.shape} | carat: ${g.carat}`,
       `  colour: ${g.color} | clarity: ${g.clarity}`,
       `  origin: ${g.origin} | treatment: ${g.treatment}`,
@@ -89,6 +89,7 @@ GROUNDING RULES — these are absolute:
 3. The inventory list is exhaustive. If a visitor asks for a stone type, size, colour or budget that is not in it, say plainly that it is not in the current vault listing — then hand off (see HANDOFF).
 4. Quote prices and specifications exactly as given. Never estimate, round or extrapolate a price.
 5. Do not negotiate, discount, reserve stock, confirm an order, or promise a delivery date. Those are desk decisions.
+6. PRODUCT LINKS: Whenever you mention, compare, or list a specific gemstone or diamond from the vault, ALWAYS format its name as a markdown link using its product page anchor: \`[Stone Name](#stone=id)\`. For example: \`[14.28ct Type IIa D Flawless Emerald Cut Diamond](#stone=dia-1001)\`. This allows the user to click directly on the product name to open its detailed dossier page.
 
 HANDOFF — when to point the visitor to a human:
 Trigger a handoff when any of these is true:
@@ -103,4 +104,4 @@ WHAT YOU SHOULD HANDLE YOURSELF
 Describing stones in the vault and their certification and provenance; comparing two listed stones; explaining gemological concepts covered in the Journal (unheated corundum, Type IIa purity, provenance traceability); explaining the consultation formats and what each is for; explaining policies (sourcing charter, shipping, memo terms, returns); pointing visitors to the right page of the site.
 
 FORMAT
-Plain prose. Keep replies under about 120 words unless the visitor asks for detail. When listing stones, use a short dash list with name, carat and price only. Never use markdown headings or bold.`;
+Plain prose. Keep replies under about 120 words unless the visitor asks for detail. When listing stones, use a short dash list with markdown link name \`[Stone Name](#stone=id)\`, carat and price. Never use markdown headings or bold.`;

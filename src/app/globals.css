@@ -7,7 +7,7 @@
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
-  
+
   body {
     font-family: var(--font-sans);
     font-size: 15px;
@@ -36,22 +36,28 @@
   width: 7px;
   height: 7px;
 }
+
 ::-webkit-scrollbar-track {
   background: #F4EFEA;
 }
+
 .dark ::-webkit-scrollbar-track {
   background: #181614;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #D5CDC4;
   border-radius: 4px;
 }
+
 .dark ::-webkit-scrollbar-thumb {
   background: #383430;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #B3A89D;
 }
+
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #575048;
 }

@@ -33,6 +33,24 @@ export default function App() {
   const [activePolicy, setActivePolicy] = useState<PolicyType | null>(null);
   const [isSiteGuideOpen, setIsSiteGuideOpen] = useState<boolean>(false);
 
+  // Check hash for stone deep links e.g. #stone=dia-1001
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.includes('stone=')) {
+        const stoneId = hash.split('stone=')[1]?.split('&')[0];
+        const found = GEMSTONES_CATALOG.find((s) => s.id === stoneId);
+        if (found) {
+          setSelectedGemstone(found);
+        }
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   // Load / save cart from localStorage
   useEffect(() => {
     try {
@@ -243,7 +261,7 @@ export default function App() {
       />
 
       {/* Floating AI Concierge */}
-      <ChatWidget />
+      <ChatWidget onSelectStone={(stone) => setSelectedGemstone(stone)} />
 
       {/* Global Footer */}
       <Footer

@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { WHATSAPP_URL } from '../lib/siteKnowledge';
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
+import { Gemstone } from '../types';
+import { GEMSTONES_CATALOG } from '../data/gemstones';
+
+interface ChatWidgetProps {
+  onSelectStone?: (stone: Gemstone) => void;
+}
 
 interface ChatMessage {
   role: 'user' | 'model';
@@ -20,6 +26,68 @@ const SUGGESTIONS = [
   'How do memo terms work?',
 ];
 
+function renderFormattedText(text: string, onSelectStone?: (stone: Gemstone) => void) {
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts: (string | React.ReactNode)[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+
+    const label = match[1];
+    const url = match[2];
+    const key = `link-${match.index}`;
+
+    if (url.startsWith('#stone=') || url.startsWith('#gemstone=')) {
+      const stoneId = url.split('=')[1];
+      const stone = GEMSTONES_CATALOG.find((s) => s.id === stoneId);
+
+      parts.push(
+        <button
+          key={key}
+          onClick={(e) => {
+            e.preventDefault();
+            if (stone && onSelectStone) {
+              onSelectStone(stone);
+            }
+            window.location.hash = url;
+          }}
+          title={stone ? `View product page for ${stone.name}` : `View ${label}`}
+          className="font-semibold text-[#C5A880] dark:text-[#D4AF37] underline underline-offset-2 hover:text-[#1A1918] dark:hover:text-[#F5F2ED] transition-colors cursor-pointer inline-flex items-center gap-0.5 mx-0.5 text-left"
+        >
+          <span>{label}</span>
+          <svg className="w-3.5 h-3.5 inline-block opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </button>
+      );
+    } else {
+      parts.push(
+        <a
+          key={key}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-[#C5A880] dark:text-[#D4AF37] underline underline-offset-2 hover:text-[#1A1918] dark:hover:text-[#F5F2ED] transition-colors"
+        >
+          {label}
+        </a>
+      );
+    }
+
+    lastIndex = linkRegex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : text;
+}
+
 /** WhatsApp hand-off shown beneath a reply the desk should take over. */
 const WhatsAppHandoff: React.FC = () => (
   <a
@@ -36,7 +104,7 @@ const WhatsAppHandoff: React.FC = () => (
   </a>
 );
 
-export const ChatWidget: React.FC = () => {
+export const ChatWidget: React.FC<ChatWidgetProps> = ({ onSelectStone }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState('');
@@ -173,7 +241,7 @@ export const ChatWidget: React.FC = () => {
                           : 'bg-[#FFFFFF] dark:bg-[#181614] border border-[#E8E1D9] dark:border-[#262320] text-[#44403C] dark:text-[#D5CDC4] rounded-bl-sm'
                     }`}
                   >
-                    {msg.text}
+                    {renderFormattedText(msg.text, onSelectStone)}
                   </div>
                   {msg.role === 'model' && msg.handoff && <WhatsAppHandoff />}
                 </div>
