@@ -23,6 +23,8 @@ import { SiteGuideModal } from './components/SiteGuideModal';
 import { Footer } from './components/Footer';
 import { ChatWidget } from './components/ChatWidget';
 
+import { AdminDashboard } from './components/AdminDashboard';
+
 export default function App() {
   const { user, isRestoring } = useAuth();
   const [currentPage, setCurrentPage] = useState<PageView>('home');
@@ -33,11 +35,13 @@ export default function App() {
   const [activePolicy, setActivePolicy] = useState<PolicyType | null>(null);
   const [isSiteGuideOpen, setIsSiteGuideOpen] = useState<boolean>(false);
 
-  // Check hash for stone deep links e.g. #stone=dia-1001
+  // Check hash for stone deep links e.g. #stone=dia-1001 or #admin
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
-      if (hash.includes('stone=')) {
+      if (hash === '#admin') {
+        setCurrentPage('admin');
+      } else if (hash.includes('stone=')) {
         const stoneId = hash.split('stone=')[1]?.split('&')[0];
         const found = GEMSTONES_CATALOG.find((s) => s.id === stoneId);
         if (found) {
@@ -229,6 +233,13 @@ export default function App() {
 
         {currentPage === 'story' && (
           <StoryAndEthicsSection />
+        )}
+
+        {currentPage === 'admin' && (
+          <AdminDashboard
+            onNavigate={handleNavigate}
+            onSelectStone={(stone) => setSelectedGemstone(stone)}
+          />
         )}
       </main>
 

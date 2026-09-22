@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 import { buildSiteKnowledge, SYSTEM_PROMPT } from '../../../lib/siteKnowledge';
+import fs from 'fs';
+import path from 'path';
 
 // The concierge reads live site data at request time, so never cache this route.
 export const dynamic = 'force-dynamic';
@@ -15,6 +17,52 @@ const TRANSIENT_STATUSES = new Set([429, 500, 502, 503, 504]);
 interface IncomingMessage {
   role: 'user' | 'model';
   text: string;
+}
+
+interface ChatLogEntry {
+  id: string;
+  timestamp: string;
+  userMessage: string;
+  botReply: string;
+  handoff: boolean;
+}
+
+let memoryLogs: ChatLogEntry[] = [];
+
+function logChatInteraction(userMessage: string, botReply: string, handoff: boolean) {
+  const entry: ChatLogEntry = {
+    id: `log-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+    timestamp: new Date().toISOString(),
+    userMessage,
+    botReply,
+    handoff,
+  };
+
+  memoryLogs.unshift(entry);
+  if (memoryLogs.length > 200) memoryLogs = memoryLogs.slice(0, 200);
+
+  try {
+    const logsDir = path.join(process.cwd(), 'backend', 'data');
+    if (!fs.existsSync(logsDir)) {
+      fs.mkdirSync(logsDir, { recursive: true });
+    }
+    const filePath = path.join(logsDir, 'chat_logs.json');
+    let existing: ChatLogEntry[] = [];
+    if (fs.existsSync(filePath)) {
+      try {
+        existing = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      } catch (e) { }
+    }
+    existing.unshift(entry);
+    if (existing.length > 500) existing = existing.slice(0, 500);
+    fs.writeFileSync(filePath, JSON.stringify(existing, null, 2), 'utf-8');
+  } catch (e) {
+    console.error('[concierge log error]', e);
+  }
+}
+
+export async function GET() {
+  return NextResponse.json({ success: true, count: memoryLogs.length, logs: memoryLogs });
 }
 
 export async function POST(req: NextRequest) {
@@ -54,6 +102,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const lastUserMsg = history[history.length - 1]?.parts[0]?.text || '';
+
   try {
     const ai = new GoogleGenAI({ apiKey });
 
@@ -73,15 +123,19 @@ export async function POST(req: NextRequest) {
 
     if (!reply) {
       // Model returned nothing usable (a safety stop, or an empty candidate).
+      const fallbackReply = 'I am not able to answer that one from our listings. Our trade desk can help you directly on WhatsApp.';
+      logChatInteraction(lastUserMsg, fallbackReply, true);
       return NextResponse.json({
         success: true,
-        reply:
-          'I am not able to answer that one from our listings. Our trade desk can help you directly on WhatsApp.',
+        reply: fallbackReply,
         handoff: true,
       });
     }
 
-    return NextResponse.json({ success: true, reply, handoff: looksLikeHandoff(reply) });
+    const handoff = looksLikeHandoff(reply);
+    logChatInteraction(lastUserMsg, reply, handoff);
+
+    return NextResponse.json({ success: true, reply, handoff });
   } catch (err) {
     console.error('[concierge] Gemini request failed:', err);
     return NextResponse.json(

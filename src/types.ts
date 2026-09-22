@@ -88,7 +88,8 @@ export type PageView =
   | 'vault'
   | 'signin'
   | 'signup'
-  | 'checkout';
+  | 'checkout'
+  | 'admin';
 
 export type PolicyType = 
   | 'ethical-sourcing'

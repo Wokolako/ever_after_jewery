@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { WHATSAPP_URL } from '../lib/siteKnowledge';
-import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, RotateCcw } from 'lucide-react';
 import { Gemstone } from '../types';
 import { GEMSTONES_CATALOG } from '../data/gemstones';
 
@@ -106,12 +106,37 @@ const WhatsAppHandoff: React.FC = () => (
 
 export const ChatWidget: React.FC<ChatWidgetProps> = ({ onSelectStone }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('yosenamora_chat_history');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+    }
+    return [GREETING];
+  });
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Persist chat history to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('yosenamora_chat_history', JSON.stringify(messages));
+    } catch (e) {}
+  }, [messages]);
+
+  const handleClearHistory = () => {
+    setMessages([GREETING]);
+    try {
+      localStorage.removeItem('yosenamora_chat_history');
+    } catch (e) {}
+  };
 
   // Pin the transcript to the newest message.
   useEffect(() => {
@@ -217,13 +242,25 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ onSelectStone }) => {
                   Vault listings, provenance &amp; terms
                 </p>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                aria-label="Close the concierge"
-                className="p-1.5 text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors cursor-pointer sm:hidden"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-1.5">
+                {messages.length > 1 && (
+                  <button
+                    onClick={handleClearHistory}
+                    title="Clear conversation transcript"
+                    aria-label="Clear transcript"
+                    className="p-1.5 text-[#78716C] dark:text-[#A69C94] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors cursor-pointer"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </button>
+                )}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Close the concierge"
+                  className="p-1.5 text-[#57534E] dark:text-[#D5CDC4] hover:text-[#1A1918] dark:hover:text-[#F5F2ED] hover:bg-[#F2ECE4] dark:hover:bg-[#23201D] rounded-full transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
 
